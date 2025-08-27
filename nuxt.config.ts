@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  // 兼容性配置
+  compatibilityDate: '2025-08-27',
+
   // 开发服务器配置
   devServer: {
     port: 3000,
@@ -17,7 +20,8 @@ export default defineNuxtConfig({
     }
   },
 
-  // 启用 SSG 模式
+  // SSG 配置 - 静态网站生成
+  ssr: true,
   nitro: {
     prerender: {
       routes: [
@@ -35,10 +39,6 @@ export default defineNuxtConfig({
       crawlLinks: true
     }
   },
-
-  // SSG 配置
-  ssr: true,
-  target: 'static',
 
   // CSS 配置
   css: [

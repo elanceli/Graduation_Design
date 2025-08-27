@@ -1,4 +1,4 @@
-# 毕业设计作品售卖网站
+# 毕业设计作品辅导网站
 
 #设计一个毕业设计作品售卖的网站，这些作品的主要受众就是大四学生，因为他们快毕业的，主要是计算机系的
 #然后网站类似电影海报展示模块，每个都能展示相关的品类，内容介绍，价格，图片，链接，网站还能支持前端搜索功能
@@ -144,11 +144,82 @@ npm run build        # 构建生产版本
 ## 部署说明
 
 ### Vercel部署
-1. 连接GitHub仓库到Vercel
-2. 设置构建命令: `npm run generate`
-3. 设置输出目录: `.output/public`
-4. 绑定自定义域名: `biyeshunli.top`
-5. 每次推送代码自动部署
+
+#### 🚀 快速部署步骤
+
+1. **推送代码到GitHub**
+   ```bash
+   git add .
+   git commit -m "Ready for Vercel deployment"
+   git push origin main
+   ```
+
+2. **Vercel控制台配置**
+   - 访问 [vercel.com](https://vercel.com)
+   - 连接GitHub仓库
+   - 选择项目目录：`Main_Website`
+   - 设置构建配置：
+     ```
+     Framework: Nuxt.js
+     Build Command: npm run generate
+     Output Directory: .output/public
+     Install Command: npm install
+     Node.js Version: 18.x
+     ```
+
+3. **环境变量（可选）**
+   ```
+   无需额外环境变量
+   ```
+
+4. **自定义域名**
+   - 在Vercel控制台中添加域名：`biyeshunli.top`
+   - 配置 DNS 记录：
+     ```
+     CNAME: biyeshunli.top -> cname.vercel-dns.com
+     ```
+
+#### 🔧 部署配置文件
+
+项目包含以下配置文件以保证部署成功：
+
+- **`vercel.json`**: Vercel部署配置
+- **`.vercelignore`**: 排除不需要的文件
+- **`nuxt.config.ts`**: Nuxt SSG 配置
+
+#### ⚠️ 常见问题解决
+
+**问题 1：构建失败 - “Command failed”**
+```bash
+# 本地测试构建
+npm run generate
+
+# 检查输出目录
+ls -la .output/public
+```
+
+**问题 2：“404 - This page could not be found”**
+- 检查 `vercel.json` 中的路由配置
+- 确保所有页面都在 `nitro.prerender.routes` 中
+
+**问题 3：静态资源加载失败**
+- 检查 `nuxt.config.ts` 中的 `app.baseURL` 设置
+- 确保图片路径使用绝对URL
+
+**问题 4：Element Plus 样式丢失**
+- 检查 CSS 导入顺序
+- 确保 `build.transpile` 包含 `element-plus`
+
+#### 📋 部署检查列表
+
+部署前请确保：
+
+- ✅ 本地 `npm run generate` 成功
+- ✅ `.output/public` 目录存在且包含HTML文件
+- ✅ 所有页面路由在 `nuxt.config.ts` 中配置
+- ✅ 图片链接使用外部URL（如Unsplash）
+- ✅ `package.json` 包含正确的构建脚本
+- ✅ Node.js 版本兼容（>= 16.0.0）
 
 ### 环境变量
 项目当前无需额外环境变量配置
