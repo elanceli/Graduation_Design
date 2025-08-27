@@ -1,0 +1,38 @@
+{
+  "name": "graduation-design-website",
+  "version": "1.0.0",
+  "description": "毕业设计作品售卖网站 - 专为计算机专业大四学生提供优质毕业设计作品",
+  "private": true,
+  "keywords": [
+    "graduation",
+    "design",
+    "nuxt3",
+    "vue3",
+    "element-plus",
+    "毕业设计"
+  ],
+  "author": "Your Name",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "start": "node .output/server/index.mjs",
+    "lint": "echo 'No linting configured'",
+    "clean": "rm -rf .nuxt .output dist node_modules/.cache"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "latest",
+    "nuxt": "^3.8.0"
+  },
+  "dependencies": {
+    "@element-plus/nuxt": "^1.0.7",
+    "element-plus": "^2.4.4",
+    "@nuxtjs/google-fonts": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=7.0.0"
+  }
+}
