@@ -20,11 +20,11 @@
     "postinstall": "nuxt prepare",
     "start": "node .output/server/index.mjs",
     "lint": "echo 'No linting configured'",
-    "clean": "rm -rf .nuxt .output dist node_modules/.cache"
+    "clean": "rm -rf .nuxt .output dist node_modules/.cache",
+    "vercel-build": "nuxt generate"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
-    "@nuxtjs/vercel-builder": "^0.24.0",
     "nuxt": "^3.8.0"
   },
   "dependencies": {

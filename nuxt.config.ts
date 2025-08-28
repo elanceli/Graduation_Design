@@ -20,9 +20,10 @@ export default defineNuxtConfig({
     }
   },
 
-  // SSG 配置 - 静态网站生成
+  // SSG 配置 - 纯静态网站生成
   ssr: true,
   nitro: {
+    preset: 'static',
     prerender: {
       routes: [
         '/',

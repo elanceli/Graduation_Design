@@ -1,16 +1,19 @@
 {
-    "buildCommand": "npm run generate",
-    "outputDirectory": ".output/public",
-    "framework": "nuxtjs",
-    "functions": {
-        "pages/**": {
-            "runtime": "nodejs18.x"
-        }
-    },
-    "redirects": [
-        {
-            "source": "/admin",
-            "destination": "/admin.html"
-        }
-    ]
+  "version": 2,
+  "builds": [
+    {
+      "src": "nuxt.config.ts",
+      "use": "@nuxtjs/vercel-builder",
+      "config": {
+        "serverFiles": ["package.json"]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/.*",
+      "dest": "/"
+    }
+  ],
+  "outputDirectory": "dist"
 }

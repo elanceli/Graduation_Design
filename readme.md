@@ -198,7 +198,11 @@ npm run generate
 ls -la .output/public
 ```
 
-**问题 2：“404 - This page could not be found”**
+**问题 2："Function Runtimes must have a valid version"**
+- 原因：`vercel.json` 中不必要的 `functions` 配置
+- 解决：删除 `functions` 字段，纯静态网站不需要服务器函数
+
+**问题 3：“404 - This page could not be found”**
 - 检查 `vercel.json` 中的路由配置
 - 确保所有页面都在 `nitro.prerender.routes` 中
 
