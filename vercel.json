@@ -1,19 +1,6 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "nuxt.config.ts",
-      "use": "@nuxtjs/vercel-builder",
-      "config": {
-        "serverFiles": ["package.json"]
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/.*",
-      "dest": "/"
-    }
-  ],
-  "outputDirectory": "dist"
+  "buildCommand": "npm run generate",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "framework": null
 }
