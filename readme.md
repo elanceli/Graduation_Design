@@ -5,8 +5,10 @@
 #暂时不需要用户注册，而是引流到闲鱼购买
 #网站目前是纯前端的纯静态页面
 #托管在vercel上，域名为biyeshunli.top，每次在本地更新代码后，vercel会自动更新
-#使用nuxt.js，使用srg技术构建本网站，不是说售卖的东西就是nuxtjs的
-#使用element-ui
+#使用nuxt.js，使用srg技术构建本网站，不是说售卖的东西就是nuxtjs的#使用element-ui
+
+
+当前版本为v1.0.1
 
 ## 技术栈
 
