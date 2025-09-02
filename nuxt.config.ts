@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from 'nuxt/config'
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
@@ -11,12 +13,11 @@ export default defineNuxtConfig({
     host: '0.0.0.0'
   },
 
-  // Vite 配置 - 强制使用端口3000
+  // Vite 配置
   vite: {
     server: {
       port: 3000,
-      host: '0.0.0.0',
-      strictPort: true
+      host: '0.0.0.0'
     }
   },
 
@@ -38,7 +39,13 @@ export default defineNuxtConfig({
         '/project/8'
       ],
       crawlLinks: true
-    }
+    },
+    publicAssets: [
+      {
+        baseURL: '/images',
+        dir: 'public/images'
+      }
+    ]
   },
 
   // CSS 配置

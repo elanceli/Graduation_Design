@@ -25,7 +25,7 @@ export const projects = [
     category: 'Web开发',
     description: '基于Python Flask的电影信息管理系统，支持电影信息录入、分类管理、评分系统等功能。',
     price: '￥199',
-    image: 'https://images.unsplash.com/photo-1489599639319-fb8935c2a8ea?w=400',
+    image: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=300&fit=crop',
     technologies: ['Flask', 'SQLite', 'HTML/CSS', 'JavaScript'],
     features: [
       '电影信息管理',

@@ -32,7 +32,7 @@
     </header>
 
     <!-- 搜索筛选区域 -->
-    <SearchFilter @filter-change="handleFilterChange" />
+    <SearchFilter ref="searchFilterRef" @filter-change="handleFilterChange" />
 
     <!-- 主要内容区域 -->
     <main class="main-content">
@@ -72,15 +72,23 @@
           </div>
         </Transition>
 
-        <!-- 加载更多按钮 -->
-        <div class="load-more" v-if="canLoadMore">
+        <!-- 无限滚动触发器 -->
+        <div ref="loadMoreTrigger" class="load-more-trigger" v-if="canLoadMore">
+          <div class="loading-indicator" v-if="loading">
+            <el-icon class="is-loading"><Loading /></el-icon>
+            <span>加载中...</span>
+          </div>
+        </div>
+        
+        <!-- 手动加载更多按钮（备用） -->
+        <div class="load-more" v-if="canLoadMore && !loading">
           <el-button 
             type="primary" 
             size="large" 
             @click="loadMore"
-            :loading="loading"
+            plain
           >
-            加载更多作品
+            点击加载更多
           </el-button>
         </div>
       </div>
@@ -117,7 +125,7 @@
 </template>
 
 <script setup>
-import { Search, Setting } from '@element-plus/icons-vue'
+import { Search, Setting, Loading } from '@element-plus/icons-vue'
 import { projects } from '~/data/projects'
 
 // 开发环境检查
@@ -141,8 +149,10 @@ useHead({
 // 响应式数据
 const filteredProjects = ref([])
 const currentFilters = ref({})
-const displayCount = ref(6) // 初始显示6个项目
+const displayCount = ref(8) // 初始显示8个项目
 const loading = ref(false)
+const loadMoreTrigger = ref(null)
+const observer = ref(null)
 
 // 计算属性
 const hasActiveFilters = computed(() => {
@@ -227,10 +237,22 @@ const applyFilters = (filters) => {
 // 处理筛选变化
 const handleFilterChange = (filters) => {
   currentFilters.value = filters
+  
+  // 如果所有筛选条件都是默认值，重置显示数量并显示所有项目
+  if ((!filters.searchQuery || filters.searchQuery === '') &&
+      (!filters.category || filters.category === '全部') &&
+      (!filters.difficulty || filters.difficulty === '全部') &&
+      (!filters.priceRange || filters.priceRange.max === Infinity) &&
+      (!filters.sortBy || filters.sortBy === 'default')) {
+    displayCount.value = 8
+    filteredProjects.value = projects.slice(0, 8)
+    return
+  }
+  
   const allFiltered = applyFilters(filters)
   filteredProjects.value = allFiltered.slice(0, displayCount.value)
   
-  // 重置显示数量
+  // 只有在筛选结果少于当前显示数量时才调整
   if (displayCount.value > allFiltered.length) {
     displayCount.value = allFiltered.length
   }
@@ -238,10 +260,10 @@ const handleFilterChange = (filters) => {
 
 // 清除筛选
 const clearFilters = () => {
-  // 这里需要触发SearchFilter组件的清除方法
-  // 由于组件通信限制，我们直接重置
+  // 直接重置为初始状态
   currentFilters.value = {}
-  filteredProjects.value = projects.slice(0, displayCount.value)
+  displayCount.value = 8
+  filteredProjects.value = projects.slice(0, 8)
 }
 
 // 加载更多
@@ -252,15 +274,59 @@ const loadMore = async () => {
   await new Promise(resolve => setTimeout(resolve, 500))
   
   const allFiltered = applyFilters(currentFilters.value)
-  displayCount.value = Math.min(displayCount.value + 6, allFiltered.length)
+  displayCount.value = Math.min(displayCount.value + 8, allFiltered.length)
   filteredProjects.value = allFiltered.slice(0, displayCount.value)
   
   loading.value = false
 }
 
+// 设置无限滚动观察器
+const setupInfiniteScroll = () => {
+  if (loadMoreTrigger.value && 'IntersectionObserver' in window) {
+    observer.value = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && canLoadMore.value && !loading.value) {
+          loadMore()
+        }
+      })
+    }, {
+      rootMargin: '100px'
+    })
+    
+    observer.value.observe(loadMoreTrigger.value)
+  }
+}
+
+// 清理观察器
+const cleanupObserver = () => {
+  if (observer.value) {
+    observer.value.disconnect()
+    observer.value = null
+  }
+}
+
 // 初始化
 onMounted(() => {
   filteredProjects.value = projects.slice(0, displayCount.value)
+  nextTick(() => {
+    setupInfiniteScroll()
+  })
+})
+
+// 组件卸载时清理
+onUnmounted(() => {
+  cleanupObserver()
+})
+
+// 监听canLoadMore变化，重新设置观察器
+watch(canLoadMore, (newVal) => {
+  if (newVal) {
+    nextTick(() => {
+      setupInfiniteScroll()
+    })
+  } else {
+    cleanupObserver()
+  }
 })
 </script>
 
@@ -340,12 +406,18 @@ onMounted(() => {
   margin-left: 8px;
 }
 
-/* 项目网格 */
+/* 瀑布流布局 */
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  column-count: 3;
+  column-gap: 2rem;
   margin-bottom: 3rem;
+}
+
+.projects-grid .project-card {
+  break-inside: avoid;
+  margin-bottom: 2rem;
+  display: inline-block;
+  width: 100%;
 }
 
 /* 无结果提示 */
@@ -364,10 +436,31 @@ onMounted(() => {
   margin-bottom: 2rem;
 }
 
-/* 加载更多 */
+/* 无限滚动触发器 */
+.load-more-trigger {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #667eea;
+  font-size: 14px;
+}
+
+.loading-indicator .el-icon {
+  font-size: 18px;
+}
+
+/* 手动加载更多 */
 .load-more {
   text-align: center;
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
 
 /* 页脚 */
@@ -437,8 +530,8 @@ onMounted(() => {
   }
   
   .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    column-count: 1;
+    column-gap: 1.5rem;
   }
   
   .footer-content {

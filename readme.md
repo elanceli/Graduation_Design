@@ -45,6 +45,7 @@ Main_Website/
 ## 功能特性
 
 ### 🎯 核心功能
+
 - **项目展示**: 海报式网格布局展示毕业设计作品
 - **搜索筛选**: 支持关键词搜索、分类筛选、难度筛选、价格筛选
 - **项目详情**: 详细的项目介绍、技术栈、功能特性展示
@@ -52,12 +53,14 @@ Main_Website/
 - **响应式设计**: 完美适配PC和移动端
 
 ### 🎨 UI特性
+
 - **现代设计**: 采用渐变色彩和卡片式布局
 - **动画效果**: 流畅的hover动画和页面切换效果
 - **无障碍访问**: 支持键盘导航和屏幕阅读器
 - **加载优化**: 图片懒加载和骨架屏效果
 
 ### 📊 项目数据
+
 - **8个技术分类**: Web开发、移动应用、电子商务、物联网等
 - **多种难度等级**: 简单、中等、困难
 - **价格区间**: ￥100-599不等
@@ -66,6 +69,7 @@ Main_Website/
 ## 安装运行
 
 ### 环境要求
+
 - Node.js >= 16.0.0
 - npm >= 7.0.0
 
@@ -108,22 +112,23 @@ npm run preview
 ### 5分钟开始管理作品
 
 1. **启动开发环境**
+
    ```bash
    npm run dev
    ```
-
 2. **访问管理系统**
+
    - 打开 `http://localhost:3000`
    - 点击右上角的"作品管理"按钮
-
 3. **添加第一个作品**
+
    - 点击"添加新作品"
    - 填写基本信息（标题、分类、价格等）
    - 保存并生成projects.js文件
-
 4. **更新网站**
+
    - 下载生成的projects.js文件
-   - 替换`data/projects.js`文件
+   - 替换 `data/projects.js`文件
    - 刷新页面查看新作品
 
 ### 常用命令
@@ -148,13 +153,14 @@ npm run build        # 构建生产版本
 #### 🚀 快速部署步骤
 
 1. **推送代码到GitHub**
+
    ```bash
    git add .
    git commit -m "Ready for Vercel deployment"
    git push origin main
    ```
-
 2. **Vercel控制台配置**
+
    - 访问 [vercel.com](https://vercel.com)
    - 连接GitHub仓库
    - 选择项目目录：`Main_Website`
@@ -166,13 +172,13 @@ npm run build        # 构建生产版本
      Install Command: npm install
      Node.js Version: 18.x
      ```
-
 3. **环境变量（可选）**
+
    ```
    无需额外环境变量
    ```
-
 4. **自定义域名**
+
    - 在Vercel控制台中添加域名：`biyeshunli.top`
    - 配置 DNS 记录：
      ```
@@ -190,6 +196,7 @@ npm run build        # 构建生产版本
 #### ⚠️ 常见问题解决
 
 **问题 1：构建失败 - “Command failed”**
+
 ```bash
 # 本地测试构建
 npm run generate
@@ -199,18 +206,22 @@ ls -la .output/public
 ```
 
 **问题 2："Function Runtimes must have a valid version"**
+
 - 原因：`vercel.json` 中不必要的 `functions` 配置
 - 解决：删除 `functions` 字段，纯静态网站不需要服务器函数
 
 **问题 3：“404 - This page could not be found”**
+
 - 检查 `vercel.json` 中的路由配置
 - 确保所有页面都在 `nitro.prerender.routes` 中
 
 **问题 3：静态资源加载失败**
+
 - 检查 `nuxt.config.ts` 中的 `app.baseURL` 设置
 - 确保图片路径使用绝对URL
 
 **问题 4：Element Plus 样式丢失**
+
 - 检查 CSS 导入顺序
 - 确保 `build.transpile` 包含 `element-plus`
 
@@ -226,6 +237,7 @@ ls -la .output/public
 - ✅ Node.js 版本兼容（>= 16.0.0）
 
 ### 环境变量
+
 项目当前无需额外环境变量配置
 
 ## 开发指南
@@ -237,6 +249,7 @@ ls -la .output/public
 #### 🚀 访问管理系统
 
 **开发环境访问：**
+
 1. 启动开发服务器：`npm run dev`
 2. 访问主页：`http://localhost:3000`
 3. 点击右上角的"作品管理"按钮
@@ -247,9 +260,10 @@ ls -la .output/public
 #### 📝 添加新作品流程
 
 1. **打开管理界面**
-   - 点击"添加新作品"按钮
 
+   - 点击"添加新作品"按钮
 2. **填写作品信息**
+
    ```
    ✅ 作品标题*     - 项目名称
    ✅ 分类*         - Web开发/移动应用等
@@ -263,22 +277,22 @@ ls -la .output/public
    ⭕ 主要功能      - 可动态添加多个功能点
    ✅ 交付内容*     - 包含的文件和文档
    ```
-
 3. **保存并生成文件**
+
    - 点击"添加"按钮保存
    - 系统提示是否生成新的projects.js文件
    - 选择"生成文件"自动下载
-
 4. **更新项目文件**
-   - 将下载的`projects.js`文件
-   - 手动替换`data/projects.js`文件
+
+   - 将下载的 `projects.js`文件
+   - 手动替换 `data/projects.js`文件
    - 刷新网站查看新添加的作品
 
 #### ✏️ 编辑现有作品
 
 1. 在管理界面的作品列表中找到要编辑的作品
 2. 点击"编辑"按钮（铅笔图标）
-3. 修改相应信息
+3. 　修改相应信息
 4. 点击"更新"保存
 5. 重复上述步骤3-4生成新文件
 
@@ -292,11 +306,13 @@ ls -la .output/public
 #### 💾 数据备份与恢复
 
 **导出备份：**
+
 - 点击"导出备份"按钮
 - 下载包含完整数据的JSON文件
 - 文件名格式：`projects-backup-YYYY-MM-DD-HH-mm-ss.json`
 
 **导入数据：**
+
 - 点击"导入数据"按钮
 - 选择之前导出的JSON备份文件
 - 系统自动恢复数据并提示生成新的projects.js文件
@@ -312,7 +328,7 @@ ls -la .output/public
 
 #### ⚠️ 重要注意事项
 
-1. **文件替换**：每次修改后需手动替换`data/projects.js`文件
+1. **文件替换**：每次修改后需手动替换 `data/projects.js`文件
 2. **数据备份**：重要修改前建议先导出备份
 3. **图片链接**：使用稳定的图片托管服务（如Unsplash）
 4. **价格格式**：请保持￥xxx的格式统一
@@ -365,6 +381,7 @@ ls -la .output/public
 ## 更新日志
 
 ### v1.1.0 (2024-08) - 管理系统版本
+
 - ✅ **新增项目管理系统**：可视化管理界面
 - ✅ **表单化操作**：通过表单添加/编辑作品
 - ✅ **数据验证**：完整的表单字段验证
@@ -374,6 +391,7 @@ ls -la .output/public
 - ✅ **开发环境入口**：主页右上角管理入口
 
 ### v1.0.0 (2024-08) - 初始版本
+
 - ✅ 初始版本发布
 - ✅ 基础项目展示功能
 - ✅ 搜索筛选功能
@@ -403,31 +421,28 @@ Main_Website/
 
 ## 使用方法
 
-1.  **安装依赖**
+1. **安装依赖**
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
+2. **启动开发环境**
 
-2.  **启动开发环境**
+   ```bash
+   npm run dev
+   ```
 
-    ```bash
-    npm run dev
-    ```
+   访问 `http://localhost:3000` 查看。
+3. **构建生产版本**
 
-    访问 `http://localhost:3000` 查看。
+   ```bash
+   npm run build
+   ```
+4. **本地预览生产版本**
 
-3.  **构建生产版本**
-
-    ```bash
-    npm run build
-    ```
-
-4.  **本地预览生产版本**
-
-    ```bash
-    npm run preview
-    ```
+   ```bash
+   npm run preview
+   ```
 
 ## 数据修改
 
@@ -438,16 +453,19 @@ Main_Website/
 ### 管理系统相关
 
 **问题：管理入口不显示**
+
 - 确保在开发环境运行：`npm run dev`
 - 检查控制台是否有错误
 - 清除浏览器缓存后重试
 
 **问题：数据保存失败**
+
 - 使用导出功能手动备份数据
 - 检查浏览器下载权限设置
 - 重启开发服务器后重试
 
 **问题：生成的projects.js文件格式错误**
+
 - 检查所有必填字段是否完整
 - 确保价格格式为"￥数字"
 - 验证图片URL是否有效
@@ -455,6 +473,7 @@ Main_Website/
 ### 一般问题
 
 **端口冲突**
+
 ```bash
 # 查看占用端口3000的进程
 lsof -ti:3000
@@ -464,6 +483,7 @@ kill -9 <进程ID>
 ```
 
 **依赖问题**
+
 ```bash
 # 清除node_modules重新安装
 rm -rf node_modules package-lock.json
@@ -471,6 +491,7 @@ npm install
 ```
 
 **构建失败**
+
 ```bash
 # 检查Node.js版本
 node --version  # 需要 >= 16.0.0

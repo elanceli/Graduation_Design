@@ -169,6 +169,16 @@ const clearAllFilters = () => {
   emitFilterChange()
 }
 
+// 监听外部筛选状态变化（用于同步状态）
+const resetFilters = () => {
+  clearAllFilters()
+}
+
+// 暴露方法给父组件
+defineExpose({
+  resetFilters
+})
+
 // 发送筛选变化事件
 const emitFilterChange = () => {
   emit('filter-change', {
